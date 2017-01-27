@@ -10,6 +10,8 @@ void append(Node *head, int data){
   }
   append((head->next), data);
 }
+int main(){
   Node head = {1, NULL};
   append(&head, 1);
+  return 0;
 }
