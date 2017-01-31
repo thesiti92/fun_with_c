@@ -23,36 +23,40 @@ void print_list(Node *head) {
     head = head->next;
     printf(", %d", head->data);
   }
-
   printf("\n");
 }
 
 // Find an email in the linked list and return it
 // If not found, return NULL
-// Node* find(Node *head, int data) {
-//
-// }
-
-// Remove a specified elment if in the list and return it
-// if not found, return -1
-int deleteElement(Node *head, int data) {
-  if(head->data == data){
-    Node *todelete = head;
-    head = head->next;
-    free(todelete);
-    return 1;
-  }
-  while(head->next != NULL){
-    if(head->next->data == data){
-      Node *todelete = head->next;
-      head->next = head->next->next;
-      free(todelete);
-      return 1;
+Node* find(Node *head, int data) {
+  while(head!=NULL){
+    if(head->data==data){
+      return head;
     }
     head = head->next;
   }
-  return -1;
+  return NULL;
+}
 
+// Remove a specified elment if in the list and return it
+// if not found, return -1
+int deleteElement(Node **head, int data) {
+  if((*head)->data == data){
+    Node *todelete = *head;
+    *head = (*head)->next;
+    free(todelete);
+    return 1;
+  }
+  while((*head)->next != NULL){
+    if((*head)->next->data == data){
+      Node *todelete = (*head)->next;
+      (*head)->next = (*head)->next->next;
+      free(todelete);
+      return 1;
+    }
+    *head = (*head)->next;
+  }
+  return -1;
 }
 
 // Remove last element from the list and return it
@@ -67,9 +71,9 @@ Node* pop(Node *head) {
 //
 // // Add element to end of list
 // // yes this is the same as append...
-// void push(Node *head, int data) {
-//
-// }
+void push(Node *head, int data) {
+  append(head, data);
+}
 //
 // // delete the whole linked list
 // // be careful!
@@ -89,8 +93,8 @@ int main(){
   head->data = 1;
   append(head, 2);
   append(head, 3);
-  printf("%d\n", deleteElement(head, 1));
-  // delete(head);
+  printf("%d\n", find(head, 3)->data);
+  // delete(&head);
   print_list(head);
   // head = NULL;
   return 0;
