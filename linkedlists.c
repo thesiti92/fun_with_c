@@ -87,7 +87,6 @@ void deleteList(Node *head) {
   free(head);
 }
 
-
 int main(){
   Node *head = malloc(sizeof(Node));
   head->data = 1;
