@@ -4,7 +4,7 @@ int current_pos = 0;
 char current_char;
 Token current_token;
 int length_of_input;
-char input[10];
+char input[50];
 int num_ops = 4;
 char *ops[4] = {"PLUS", "MINUS", "TIMES", "DIV"};
 
@@ -12,7 +12,6 @@ char *ops[4] = {"PLUS", "MINUS", "TIMES", "DIV"};
 Token next_token(){
 
   if(isdigit(current_char)){
-    printf("%s\n", "INTEGER");
     Token current;
     strncpy(current.type, "INTEGER", sizeof("INTEGER"));
     current.value = integer();
@@ -42,6 +41,18 @@ Token next_token(){
 		strncpy(current.type, "DIV", sizeof("DIV"));
 		return current;
 	}
+  else if(current_char == '('){
+    advance();
+    Token current;
+    strncpy(current.type, "LEFT_PAREN", sizeof("LEFT_PAREN"));
+    return current;
+  }
+  else if(current_char == ')'){
+    advance();
+    Token current;
+    strncpy(current.type, "RIGHT_PAREN", sizeof("RIGHT_PAREN"));
+    return current;
+  }
 
 }
 int integer(){
@@ -58,7 +69,7 @@ void consume(char type[]){
     current_token = next_token();
   }
   else{
-    printf("Wrong Token Type Expected\n");
+    printf("Error consuming %s expected %s instead\n",type, current_token.type);
   }
 }
 void advance(){
@@ -70,10 +81,17 @@ void advance(){
   current_char = input[current_pos];
 }
 int factor(){
+  if(strcmp(current_token.type, "LEFT_PAREN")==0){
+    consume("LEFT_PAREN");
+    int result = expr();
+    consume("RIGHT_PAREN");
+    return result;
+  }
 	Token current = current_token;
 	consume("INTEGER");
 	return current.value;
 }
+
 int term(){
 	int result=factor();
 	while(strcmp(current_token.type, "TIMES")==0 ||strcmp(current_token.type, "DIV")==0){
@@ -90,7 +108,6 @@ int term(){
 	return result;
 }
 int expr(){
-	current_token = next_token();
 	int result = term();
 	while(string_in(current_token.type, ops, num_ops)==0){
 		Token op = current_token;
@@ -113,9 +130,10 @@ int string_in(char *my_str, char *string_list[], size_t num_strings){
 }
 int main(int argc, char *argv[])
 {
-  strncpy(input, argv[1], sizeof(argv[1]));
+  strncpy(input, argv[1], 50);
   length_of_input = sizeof(input)/sizeof(input[0]);
 	current_char = input[current_pos];
+  current_token = next_token();
 	printf("%d\n", expr());
 	return 0;
 }
