@@ -1,7 +1,7 @@
 
 
 typedef enum Class{
-	CONSTANT, OP
+	CONSTANT, BINOP
 } Class;
 typedef struct Node {
 	Class class;

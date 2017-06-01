@@ -12,7 +12,7 @@ Node Num(Token token){
 }
 Node BinOp(Token token, Node left, Node right){
   Node toReturn;
-  toReturn.class = OP;
+  toReturn.class = BINOP;
   toReturn.token = token;
   toReturn.op.left = &left;
   toReturn.op.right = &right;

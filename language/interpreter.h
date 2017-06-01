@@ -4,3 +4,6 @@
 #include <stdlib.h>
 #include "lexer.h"
 #include "parser.h"
+int visitNum(Node *node);
+int visitBinOp(Node *node);
+int visit(Node *node);
