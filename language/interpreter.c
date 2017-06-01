@@ -37,10 +37,8 @@ int main(int argc, char *argv[])
   length_of_input = sizeof(input)/sizeof(input[0]);
 	current_char = input[0];
   current_token = next_token();
-  Node head = expr();
-  printf("left: %d\n", head.op.left->value);
-  printf("right: %d\n", head.op.right->value);
+  Node *head = expr();
 
-	printf("%d\n", visit(&head));
+	printf("%d\n", visit(head));
 	return 0;
 }

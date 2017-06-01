@@ -17,8 +17,8 @@ typedef struct Node {
 
 
 void consume(Type type);
-Node expr();
-Node factor();
-Node term();
-Node Num(Token token);
-Node BinOp(Token token, Node left, Node right);
+Node* expr();
+Node* factor();
+Node* term();
+Node* Num(Token token);
+Node* BinOp(Token token, Node* left, Node* right);

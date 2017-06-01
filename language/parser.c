@@ -3,19 +3,19 @@ Token current_token;
 
 char* TYPES[]={"ADD", "SUB", "MUL", "DIV", "INT", "LPAREN", "RPAREN", "EOS"};
 
-Node Num(Token token){
-  Node toReturn;
-  toReturn.class = CONSTANT;
-  toReturn.token = token;
-  toReturn.value = token.value;
+Node* Num(Token token){
+  Node* toReturn = (Node*)malloc(sizeof(Node));
+  toReturn->class = CONSTANT;
+  toReturn->token = token;
+  toReturn->value = token.value;
   return toReturn;
 }
-Node BinOp(Token token, Node left, Node right){
-  Node toReturn;
-  toReturn.class = BINOP;
-  toReturn.token = token;
-  toReturn.op.left = &left;
-  toReturn.op.right = &right;
+Node* BinOp(Token token, Node* left, Node* right){
+  Node* toReturn = (Node*)malloc(sizeof(Node));
+  toReturn->class = BINOP;
+  toReturn->token = token;
+  toReturn->op.left = left;
+  toReturn->op.right = right;
   return toReturn;
 }
 void consume(Type type){
@@ -28,7 +28,7 @@ void consume(Type type){
     exit(EXIT_SUCCESS);
   }
 }
-Node factor(){
+Node* factor(){
   if (current_token.type==INT){
     Token current = current_token;
   	consume(INT);
@@ -36,15 +36,15 @@ Node factor(){
   }
   else if(current_token.type==LPAREN){
     consume(LPAREN);
-    Node node = expr();
+    Node *node = expr();
     consume(RPAREN);
     return node;
   }
 
 }
 
-Node term(){
-	Node node = factor();
+Node* term(){
+	Node *node = factor();
 	while(current_token.type==MUL || current_token.type==DIV){
 		Token op = current_token;
 		if(op.type==MUL) {
@@ -57,8 +57,8 @@ Node term(){
 	}
 	return node;
 }
-Node expr(){
-	Node node = term();
+Node* expr(){
+	Node *node = term();
 	while(current_token.type==MUL || current_token.type==DIV||current_token.type==ADD || current_token.type==SUB){
 		Token op = current_token;
 		if (op.type==ADD) {
@@ -69,6 +69,5 @@ Node expr(){
 		}
     node = BinOp(op, node, term());
 	}
-  printf("%d\n", node.op.right->value);
 	return node;
 }
