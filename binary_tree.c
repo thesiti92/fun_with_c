@@ -57,12 +57,8 @@ void delete(int todelete, Leaf *trunk){
 			printf("%d\n", trunk->right->data);
 			Leaf *toremove = trunk->right;
 			// printf("%d\n", toremove->left->data);
-
-			free(trunk->right);
 			trunk->right = toremove->left;
-
 			trunk->right->right = toremove->right;
-
 			// free(toremove);
 
 		}
@@ -81,7 +77,21 @@ void delete(int todelete, Leaf *trunk){
 		delete(todelete, trunk->left);
 	}
 }
+int lookup(int tofind, Leaf *trunk){
+	if(trunk->data > tofind){
+		lookup(tofind, trunk->left);
+	}
+	else if(trunk->data < tofind){
+		lookup(tofind, trunk->right);
+	}
+	else if(trunk->data == tofind){
+		return 1;
+	}
+	else{
+		return 0;
+	}
 
+}
 int main(){
   Leaf *trunk = malloc(sizeof(Leaf));
   trunk->data = 10;

@@ -10,7 +10,6 @@ char *ops[4] = {"PLUS", "MINUS", "TIMES", "DIV"};
 
 
 Token next_token(){
-
   if(isdigit(current_char)){
     Token current;
     strncpy(current.type, "INTEGER", sizeof("INTEGER"));

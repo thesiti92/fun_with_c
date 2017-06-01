@@ -8,6 +8,8 @@ typedef struct Token {
   char type[20];
 } Token;
 
+
+
 Token next_token();
 int integer();
 void advance();
