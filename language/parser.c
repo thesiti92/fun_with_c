@@ -69,5 +69,6 @@ Node expr(){
 		}
     node = BinOp(op, node, term());
 	}
+  printf("%d\n", node.op.right->value);
 	return node;
 }

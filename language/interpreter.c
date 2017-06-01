@@ -5,6 +5,7 @@ extern int length_of_input;
 extern Token current_token;
 
 int visitNum(Node *node){
+  // printf("%d\n", node->value);
   return node->value;
 }
 
@@ -21,6 +22,7 @@ int visitBinOp(Node *node){
   }
 }
 int visit(Node *node){
+
   switch(node->class){
     case BINOP:
       return visitBinOp(node);
@@ -36,6 +38,9 @@ int main(int argc, char *argv[])
 	current_char = input[0];
   current_token = next_token();
   Node head = expr();
+  printf("left: %d\n", head.op.left->value);
+  printf("right: %d\n", head.op.right->value);
+
 	printf("%d\n", visit(&head));
 	return 0;
 }
