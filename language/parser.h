@@ -1,7 +1,7 @@
 
 
 typedef enum Class{
-	CONSTANT, BINOP
+	CONSTANT, BINOP, UNOP
 } Class;
 typedef struct Node {
 	Class class;
@@ -12,6 +12,7 @@ typedef struct Node {
 			struct Node* left;
 			struct Node* right;
 		} op;
+		struct Node* expr;
 	};
 } Node;
 
@@ -22,3 +23,4 @@ Node* factor();
 Node* term();
 Node* Num(Token token);
 Node* BinOp(Token token, Node* left, Node* right);
+Node* UnOp(Token op, Node* expr);

@@ -5,10 +5,16 @@ extern int length_of_input;
 extern Token current_token;
 
 int visitNum(Node *node){
-  // printf("%d\n", node->value);
   return node->value;
 }
-
+int visitUnOp(Node *node){
+  switch(node->token.type){
+    case ADD:
+      return +visit(node->expr);
+    case SUB:
+      return -visit(node->expr);
+  }
+}
 int visitBinOp(Node *node){
   switch(node->token.type){
     case ADD:
@@ -22,12 +28,13 @@ int visitBinOp(Node *node){
   }
 }
 int visit(Node *node){
-
   switch(node->class){
     case BINOP:
       return visitBinOp(node);
     case CONSTANT:
       return visitNum(node);
+    case UNOP:
+      return visitUnOp(node);
   }
 }
 

@@ -18,6 +18,15 @@ Node* BinOp(Token token, Node* left, Node* right){
   toReturn->op.right = right;
   return toReturn;
 }
+Node* UnOp(Token op, Node* expr){
+  Node* toReturn = (Node*)malloc(sizeof(Node));
+  toReturn->class = UNOP;
+  toReturn->token = op;
+  toReturn->expr = expr;
+  return toReturn;
+}
+
+
 void consume(Type type){
   if(current_token.type == type){
 		printf("Consuming %s\n", TYPES[current_token.type]);
@@ -28,9 +37,11 @@ void consume(Type type){
     exit(EXIT_SUCCESS);
   }
 }
+
+
 Node* factor(){
+  Token current = current_token;
   if (current_token.type==INT){
-    Token current = current_token;
   	consume(INT);
   	return Num(current);
   }
@@ -39,6 +50,14 @@ Node* factor(){
     Node *node = expr();
     consume(RPAREN);
     return node;
+  }
+  else if(current_token.type==ADD){
+    consume(ADD);
+    return UnOp(current, factor());
+  }
+  else if(current_token.type==SUB){
+    consume(SUB);
+    return UnOp(current, factor());
   }
 
 }
