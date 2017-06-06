@@ -1,4 +1,16 @@
+#ifndef PARSER_H
+#define PARSER_H
 
+#define FOREACH_KEYWORD(KEYWORD) \
+        KEYWORD(BEGIN)   \
+        KEYWORD(END)  \
+
+#define GENERATE_ENUM(ENUM) ENUM,
+#define GENERATE_STRING(STRING) #STRING,
+
+static const inline char *KEYWORD_STRING[] = {
+    FOREACH_KEYWORD(GENERATE_STRING)
+};
 
 typedef enum Class{
 	CONSTANT, BINOP, UNOP
@@ -24,3 +36,5 @@ Node* term();
 Node* Num(Token token);
 Node* BinOp(Token token, Node* left, Node* right);
 Node* UnOp(Token op, Node* expr);
+
+#endif

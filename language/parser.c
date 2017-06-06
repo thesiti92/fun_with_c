@@ -1,7 +1,6 @@
 #include "interpreter.h"
 Token current_token;
-
-char* TYPES[]={"ADD", "SUB", "MUL", "DIV", "INT", "LPAREN", "RPAREN", "EOS"};
+extern const char * TYPE_STRING[];
 
 Node* Num(Token token){
   Node* toReturn = (Node*)malloc(sizeof(Node));
@@ -10,6 +9,7 @@ Node* Num(Token token){
   toReturn->value = token.value;
   return toReturn;
 }
+  
 Node* BinOp(Token token, Node* left, Node* right){
   Node* toReturn = (Node*)malloc(sizeof(Node));
   toReturn->class = BINOP;
@@ -27,13 +27,14 @@ Node* UnOp(Token op, Node* expr){
 }
 
 
+
 void consume(Type type){
   if(current_token.type == type){
-		printf("Consuming %s\n", TYPES[current_token.type]);
+		printf("Consuming %s\n", TYPE_STRING[current_token.type]);
     current_token = next_token();
   }
   else{
-    printf("Error consuming %s expected %s instead\n",TYPES[type], TYPES[current_token.type]);
+    printf("Error consuming %s expected %s instead\n",TYPE_STRING[type], TYPE_STRING[current_token.type]);
     exit(EXIT_SUCCESS);
   }
 }

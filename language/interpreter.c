@@ -1,8 +1,9 @@
 #include "interpreter.h"
-extern char input[50];
+extern char * buffer;
 extern char current_char;
 extern int length_of_input;
 extern Token current_token;
+extern const char * TYPE_STRING[];
 
 int visitNum(Node *node){
   return node->value;
@@ -15,6 +16,7 @@ int visitUnOp(Node *node){
       return -visit(node->expr);
   }
 }
+
 int visitBinOp(Node *node){
   switch(node->token.type){
     case ADD:
@@ -37,15 +39,36 @@ int visit(Node *node){
       return visitUnOp(node);
   }
 }
-
 int main(int argc, char *argv[])
 {
-  strncpy(input, argv[1], 50);
-  length_of_input = sizeof(input)/sizeof(input[0]);
-	current_char = input[0];
+  FILE * f = fopen (argv[1], "rb");
+  buffer = 0;
+  long length;
+  if (f)
+  {
+    fseek (f, 0, SEEK_END);
+    length = ftell (f);
+    fseek (f, 0, SEEK_SET);
+    buffer = malloc (length);
+    if (buffer)
+    {
+      fread (buffer, 1, length, f);
+    }
+    fclose (f);
+  }
+  else{
+    printf("No File Found!\n");
+    return 0;
+  }
+
+  length_of_input = length/sizeof(buffer[0]);
+  printf("%d\n", length_of_input);
+  current_char =  buffer[0];
   current_token = next_token();
   Node *head = expr();
 
-	printf("%d\n", visit(head));
+  printf("%d\n", visit(head));
+  // printf("%s\n", TYPE_STRING[]);
+
 	return 0;
 }

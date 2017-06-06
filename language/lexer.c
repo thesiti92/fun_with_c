@@ -1,8 +1,9 @@
 #include "interpreter.h"
 int current_pos = 0;
 char current_char;
-int length_of_input;
-char input[50];
+long length_of_input;
+char * buffer;
+
 
 Token next_token(){
   if(isdigit(current_char)){
@@ -71,5 +72,5 @@ void advance(){
     return;
   }
 
-  current_char = input[current_pos];
+  current_char = buffer[current_pos];
 }
