@@ -9,7 +9,7 @@
 CC = gcc
 
 # define any compile-time flags
-CFLAGS = -Wall -g
+CFLAGS = -Wall -g -Wno-switch -Wno-return-type -Wno-inline -Wno-unused-variable
 
 # define any directories containing header files other than /usr/include
 #

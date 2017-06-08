@@ -66,9 +66,11 @@ int main(int argc, char *argv[])
   current_char =  buffer[0];
   current_token = next_token();
   Node *head = expr();
-
+  // for(int i=BEGIN; i<ID+1; i++){
+  //   printf("%s\n", TYPE_STRING[i]);
+  // }
+  // printf("%d\n", );
   printf("%d\n", visit(head));
-  // printf("%s\n", TYPE_STRING[]);
 
 	return 0;
 }

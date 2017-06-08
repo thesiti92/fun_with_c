@@ -15,20 +15,22 @@
 	TYPE(ASSIGN)	\
 	TYPE(ID) \
 
+	#define FOREACH_KEYWORD(KEYWORD) \
+	        KEYWORD(BEGIN)   \
+	        KEYWORD(END)  \
 
 #define GENERATE_ENUM(ENUM) ENUM,
 #define GENERATE_STRING(STRING) #STRING,
 
-#define FOREACH_JOIN_ENUM FOREACH_KEYWORD(GENERATE_ENUM) FOREACH_TYPE(GENERATE_ENUM)
-#define FOREACH_JOIN_STRING FOREACH_KEYWORD(GENERATE_STRING) FOREACH_TYPE(GENERATE_STRING)
-
+#define FOREACH_JOIN_ENUM
+#define FOREACH_JOIN_STRING
 
 typedef enum Type {
-    FOREACH_JOIN_ENUM
+    FOREACH_KEYWORD(GENERATE_ENUM) FOREACH_TYPE(GENERATE_ENUM)
 } Type;
 
-static const inline char *TYPE_STRING[] = {
-    FOREACH_JOIN_STRING
+static const char *TYPE_STRING[] = {
+    FOREACH_KEYWORD(GENERATE_STRING) FOREACH_TYPE(GENERATE_STRING)
 };
 
 typedef struct Token {
@@ -39,5 +41,6 @@ typedef struct Token {
 Token next_token();
 int integer();
 void advance();
+char peek();
 
 #endif

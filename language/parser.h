@@ -1,14 +1,7 @@
 #ifndef PARSER_H
 #define PARSER_H
 
-#define FOREACH_KEYWORD(KEYWORD) \
-        KEYWORD(BEGIN)   \
-        KEYWORD(END)  \
-
-#define GENERATE_ENUM(ENUM) ENUM,
-#define GENERATE_STRING(STRING) #STRING,
-
-static const inline char *KEYWORD_STRING[] = {
+static const char *KEYWORD_STRING[] = {
     FOREACH_KEYWORD(GENERATE_STRING)
 };
 

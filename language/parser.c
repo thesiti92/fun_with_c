@@ -9,7 +9,7 @@ Node* Num(Token token){
   toReturn->value = token.value;
   return toReturn;
 }
-  
+
 Node* BinOp(Token token, Node* left, Node* right){
   Node* toReturn = (Node*)malloc(sizeof(Node));
   toReturn->class = BINOP;
@@ -25,7 +25,7 @@ Node* UnOp(Token op, Node* expr){
   toReturn->expr = expr;
   return toReturn;
 }
-
+   
 
 
 void consume(Type type){

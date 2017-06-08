@@ -7,7 +7,6 @@ char * buffer;
 
 Token next_token(){
   if(isdigit(current_char)){
-
     Token current;
     current.type = INT;
     current.value = integer();
@@ -73,4 +72,11 @@ void advance(){
   }
 
   current_char = buffer[current_pos];
+}
+char peek(){
+  int peek_pos = current_pos + 1;
+  if(peek_pos>length_of_input){
+    return 0;
+  }
+  return buffer[peek_pos];
 }
