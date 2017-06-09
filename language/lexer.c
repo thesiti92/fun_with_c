@@ -58,7 +58,7 @@ Token next_token(){
 }
 int integer(){
 	char result[10] = "";
-	while(isdigit(current_char)){
+	while(isdigit(current_char) && current_pos<length_of_input){
 		strncat(result, &current_char,1);
 		advance();
 	}
@@ -79,4 +79,22 @@ char peek(){
     return 0;
   }
   return buffer[peek_pos];
+}
+int index_of(char* string, char* array[], int size){
+  for(int i=0; i<size; i++){
+    if(strcmp(array[i], string) == 0){
+      return i;
+    }
+  }
+  return -1;
+}
+void _id(){
+  char result[10] = "";
+  while(isalnum(current_char)!=0 && current_pos<length_of_input){
+    strncat(result, &current_char, 1);
+    advance();
+  }
+  Token toreturn;
+  toreturn.type = index_of(result, KEYWORD_STRINGS, sizeof(KEYWORD_STRINGS)/sizeof(KEYWORD_STRINGS[0]));
+  return toreturn;
 }

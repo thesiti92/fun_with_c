@@ -1,6 +1,6 @@
 #include "interpreter.h"
 Token current_token;
-extern const char * TYPE_STRING[];
+extern const char * TYPE_STRINGS[];
 
 Node* Num(Token token){
   Node* toReturn = (Node*)malloc(sizeof(Node));
@@ -25,16 +25,16 @@ Node* UnOp(Token op, Node* expr){
   toReturn->expr = expr;
   return toReturn;
 }
-   
+    
 
 
 void consume(Type type){
   if(current_token.type == type){
-		printf("Consuming %s\n", TYPE_STRING[current_token.type]);
+		printf("Consuming %s\n", TYPE_STRINGS[current_token.type]);
     current_token = next_token();
   }
   else{
-    printf("Error consuming %s expected %s instead\n",TYPE_STRING[type], TYPE_STRING[current_token.type]);
+    printf("Error consuming %s expected %s instead\n",TYPE_STRINGS[type], TYPE_STRINGS[current_token.type]);
     exit(EXIT_SUCCESS);
   }
 }

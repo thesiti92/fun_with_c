@@ -29,7 +29,7 @@ typedef enum Type {
     FOREACH_KEYWORD(GENERATE_ENUM) FOREACH_TYPE(GENERATE_ENUM)
 } Type;
 
-static const char *TYPE_STRING[] = {
+static const char *TYPE_STRINGS[] = {
     FOREACH_KEYWORD(GENERATE_STRING) FOREACH_TYPE(GENERATE_STRING)
 };
 
@@ -42,5 +42,8 @@ Token next_token();
 int integer();
 void advance();
 char peek();
+int index_of(char* string, char* array[], int size);
+void _id();
+
 
 #endif

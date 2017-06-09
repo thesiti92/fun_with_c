@@ -1,7 +1,7 @@
 #ifndef PARSER_H
 #define PARSER_H
 
-static const char *KEYWORD_STRING[] = {
+static const char *KEYWORD_STRINGS[] = {
     FOREACH_KEYWORD(GENERATE_STRING)
 };
 
